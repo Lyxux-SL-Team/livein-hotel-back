@@ -10,7 +10,7 @@ const propertySchema = new schema({
         required: true
     },
     unitNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     area: {
@@ -36,6 +36,10 @@ const propertySchema = new schema({
     legalNumber: {
         type: String,
         required: true
+    },
+    location:{
+        type:String,
+        required:true,
     },
     image: {
         type: String,

@@ -12,7 +12,11 @@ const hotelSchema = new schema({
         required:true,
     },
     unitNumber:{
-        type:Number,
+        type:String,
+        required:true,
+    },
+    location:{
+        type:String,
         required:true,
     },
     area:{
@@ -57,7 +61,7 @@ const hotelSchema = new schema({
         ref: 'Admin',
         required: true
     }
- 
+
 })
 
 const Hotel = mongoose.model("Hotel", hotelSchema);
