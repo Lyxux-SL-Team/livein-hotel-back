@@ -10,7 +10,7 @@ import {
 export const createHotelPropertyController = async (req, res) => {
     try {
         const hotelProperty = await createHotelProperty(req.body);
-        res.status(201).json(hotelProperty);
+        res.status(201).json({ success: true, data:hotelProperty });
     } catch (error) {
         res.status(400).json({ message: 'Error creating hotel property: ' + error.message });
     }

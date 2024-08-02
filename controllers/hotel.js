@@ -12,7 +12,7 @@ import {
 export const createHotelController = async (req, res) => {
     try {
         const hotel = await createHotel(req.body);
-        res.status(201).json(hotel);
+        res.status(201).json({ success: true, data:hotel });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

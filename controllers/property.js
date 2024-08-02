@@ -13,7 +13,7 @@ import {
 export const createPropertyController = async (req, res) => {
   try {
     const property = await createProperty(req.body);
-    res.status(201).json(property);
+    res.status(201).json({ success: true, data:property });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
