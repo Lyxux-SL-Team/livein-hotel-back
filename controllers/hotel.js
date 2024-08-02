@@ -5,7 +5,8 @@ import {
     deleteHotel,
     getAllHotel,
     getLocationAutocomplete,
-    searchHotels
+    searchHotels,
+    verifyHotel
 } from "../services/hotel.js"; 
 
 // Controller to create a new hotel
@@ -84,5 +85,15 @@ export const searchHotelsController = async (req, res) => {
     } catch (error) {
       console.error(`Error in searchHotelsController: ${error.message}`);
       return res.status(500).json({ message: `Error searching hotels: ${error.message}` });
+    }
+  };
+
+  //verify hotel
+  export const verifyHotelController = async (req, res) => {
+    try {
+      const hotel = await verifyHotel(req.params.hotelId);
+      res.status(200).json(hotel.verify);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
     }
   };

@@ -6,7 +6,8 @@ import {
     deleteHotelController,
     getAllHotelController,
     fetchLocationAutocomplete,
-    searchHotelsController
+    searchHotelsController,
+    verifyHotelController
 } from '../controllers/hotel.js'; 
 
 const router = express.Router();
@@ -18,5 +19,6 @@ router.delete('/hotel/:id', deleteHotelController);
 router.get('/hotels', getAllHotelController); 
 router.get('/locationAutocomplete', fetchLocationAutocomplete);
 router.get('/search', searchHotelsController);
+router.get('/verify/:hotelId',verifyHotelController);
 
 export { router as HotelRouter };

@@ -116,6 +116,18 @@ const searchHotels = async (query) => {
   }
 };
 
+//verify hotel
+const verifyHotel = async (hotelId) => {
+  try {
+    const hotel = await Hotel.findById(hotelId);
+    if (!hotel) {
+      throw new Error("Hotel not found");
+    }
+    return hotel;
+  } catch (error) {
+    throw new Error(`Error verifying Hotel: ${error.message}`);
+  }
+}
 
 
-export { createHotel, getHotelById, updateHotel, deleteHotel, getAllHotel ,getLocationAutocomplete,searchHotels};
+export { createHotel, getHotelById, updateHotel, deleteHotel, getAllHotel ,getLocationAutocomplete,searchHotels,verifyHotel};

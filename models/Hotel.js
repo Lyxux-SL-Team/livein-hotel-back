@@ -60,6 +60,10 @@ const hotelSchema = new schema({
         type: schema.Types.ObjectId,
         ref: 'Admin',
         required: true
+    },
+    verify:{
+        type:Boolean,
+        default:true
     }
 
 })
