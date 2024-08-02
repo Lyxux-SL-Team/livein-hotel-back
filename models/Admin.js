@@ -14,7 +14,6 @@ const userSchema = new schema({
     phoneNumber: {
         type: String,
         required: true,
-        unique: true,
     },
     countryCode:{
         type: String,
