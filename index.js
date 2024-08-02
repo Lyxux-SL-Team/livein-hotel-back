@@ -13,6 +13,7 @@ import { HotelRouter } from './routes/hotel.js';
 import {HotelPropertyRoute} from './routes/hotelProperty.js'
 import {ContractRoute} from './routes/contract.js'
 import {LanguageRoute} from './routes/language.js'
+import { PolicyRouter} from './routes/policy.js'
 
 const app = express();
 app.use(cors());
@@ -25,6 +26,7 @@ app.use('/api/hotel',HotelRouter);
 app.use('/api/hotelProperty',HotelPropertyRoute);
 app.use('/api/contract',ContractRoute);
 app.use('/api/language',LanguageRoute);
+app.use('/api/policy',PolicyRouter);
 
 const port = process.env.PORT || 5000;
 
