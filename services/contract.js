@@ -52,13 +52,21 @@ async function getContractsByAdmin(adminId) {
 }
 
 //pass signature 
-const verifySignature = async (contractId) => {
+const verifySignature = async (hotelOrPropertyId) => {
     try {
-        const contract = await Contract.findById(contractId);
+        // Find the contract by property or hotel ID
+        const contract = await Contract.findOne({
+            $or: [
+                { property: hotelOrPropertyId },
+                { hotel: hotelOrPropertyId }
+            ]
+        });
+
         if (!contract) {
             throw new Error("Contract not found!");
         }
-        return contract;
+
+        return contract.signature;
     } catch (error) {
         throw new Error(`Error verifying signature: ${error.message}`);
     }

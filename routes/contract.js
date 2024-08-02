@@ -6,6 +6,6 @@ router.post('/contracts', saveContractController);
 
 // Route to get contracts by adminId
 router.get('/contracts/admin/:adminId', getContractsByAdminController);
-router.get('/verify/:contractId',verifySignatureController);
+router.get('/verify/:hotelOrPropertyId',verifySignatureController);
 
 export {router as ContractRoute};
