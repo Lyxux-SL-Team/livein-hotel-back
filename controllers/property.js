@@ -7,6 +7,7 @@ import {
   getAllProperties,
   getLocationAutocomplete,
   searchProperty,
+  verifyProperty
 } from "../services/property.js";
 
 // Controller to create a new property
@@ -85,5 +86,15 @@ export const searchPropertyController = async (req, res) => {
   } catch (error) {
     console.error(`Error in searchPropertyController: ${error.message}`);
     return res.status(500).json({ message: `Error searching property: ${error.message}` });
+  }
+};
+
+//verify property
+export const verifyPropertyController = async (req, res) => {
+  try {
+    const property = await verifyHotel(req.params.propertyId);
+    res.status(200).json(property.verify);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
 };

@@ -6,7 +6,8 @@ import {
     deletePropertyController,
     getAllPropertiesController,
     fetchLocationAutocomplete,
-    searchPropertyController
+    searchPropertyController,
+    verifyPropertyController
 } from '../controllers/property.js';
 
 
@@ -19,4 +20,5 @@ router.delete('/properties/:id', deletePropertyController);
 router.get('/getAllProperty',getAllPropertiesController);
 router.get('/locationAutocomplete', fetchLocationAutocomplete);
 router.get('/search', searchPropertyController);
+router.get('/verify/:propertyId', verifyPropertyController);
 export {router as PropertyRouter}

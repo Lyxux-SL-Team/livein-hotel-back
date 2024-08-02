@@ -59,6 +59,11 @@ const propertySchema = new schema({
         required:true,
         default:false,
     },
+    verify:{
+        type:Boolean,
+        default:true
+    }
+
 });
 
 const Property = mongoose.model('Property', propertySchema);

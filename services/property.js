@@ -115,7 +115,18 @@ const searchProperty = async (query) => {
     }
   };
   
-  
+  //verify property
+  const verifyProperty = async (propertyId) => {
+    try {
+      const property = await Property.findById(propertyId);
+      if (!property) {
+        throw new Error("Property not found");
+      }
+      return property;
+    } catch (error) {
+      throw new Error(`Error verifying Property: ${error.message}`);
+    }
+  }
 
 export {
     createProperty,
@@ -125,4 +136,5 @@ export {
     getAllProperties,
     getLocationAutocomplete,
     searchProperty,
+    verifyProperty
 };
