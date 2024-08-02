@@ -54,15 +54,15 @@ async function getContractsByAdmin(adminId) {
 //pass signature 
 const verifySignature = async (contractId) => {
     try {
-      const contract = await Contract.findById(contractId);
-      if (!contract) {
-        throw new Error("Your are not Sign");
-      }
-      return contract;
+        const contract = await Contract.findById(contractId);
+        if (!contract) {
+            throw new Error("Contract not found!");
+        }
+        return contract;
     } catch (error) {
-      throw new Error(`Error verifying Signature: ${error.message}`);
+        throw new Error(`Error verifying signature: ${error.message}`);
     }
-  }
+};
 
 
 export {saveContract,getContractsByAdmin,verifySignature}

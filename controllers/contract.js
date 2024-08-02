@@ -24,11 +24,11 @@ export const getContractsByAdminController = async (req, res) => {
 };
 
   //verify signature
-  export const verifySignatureController = async (req, res) => {
+export const verifySignatureController = async (req, res) => {
     try {
-      const contract = await verifySignature(req.params.contractId);
-      res.status(200).json(contract.signature);
+        const contract = await verifySignature(req.params.contractId);
+        res.status(200).json({ success: contract.signature, message: !contract.signature?"Please Accept Agreement":null });
     } catch (error) {
-      res.status(404).json({ message: error.message });
+        res.status(404).json({ message: error.message });
     }
-  };
+};

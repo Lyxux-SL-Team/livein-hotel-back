@@ -92,8 +92,8 @@ export const searchHotelsController = async (req, res) => {
   export const verifyHotelController = async (req, res) => {
     try {
       const hotel = await verifyHotel(req.params.hotelId);
-      res.status(200).json(hotel.verify);
+      res.status(200).json({success: hotel.verify});
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      res.status(404).json({success: false, message: error.message });
     }
   };
