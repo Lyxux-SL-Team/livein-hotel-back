@@ -22,8 +22,8 @@ const contractSchema = new schema({
     },
     signature: {
         type: Boolean,
-        default: true,
-    }
+        default: false,
+    },
 }, { 
     timestamps: true 
 });

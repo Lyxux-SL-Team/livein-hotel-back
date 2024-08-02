@@ -1,4 +1,4 @@
-import { saveContract, getContractsByAdmin } from '../services/contract.js'; 
+import { saveContract, getContractsByAdmin,verifySignature } from '../services/contract.js'; 
 // Controller to handle saving a new contract
 export const saveContractController = async (req, res) => {
     const { adminId, contractVersion, propertyId, hotelId, signature } = req.body;
@@ -22,3 +22,13 @@ export const getContractsByAdminController = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+
+  //verify signature
+  export const verifySignatureController = async (req, res) => {
+    try {
+      const contract = await verifySignature(req.params.contractId);
+      res.status(200).json(contract.signature);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  };
