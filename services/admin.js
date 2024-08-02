@@ -92,5 +92,18 @@ const UpdateAdmin = async (adminId, updateData) => {
     }
   };
 
+  //check admin Id
+  const CheckAdminId = async (adminId) => {
+    try {
+      const admin = await Admin.findById(adminId);
+      if (!admin) {
+        throw new Error("Admin not found");
+      }
+    
+      return admin;
+    } catch (error) {
+      throw new Error(`Error checking admin: ${error.message}`);
+    }
+  };
 
-export { CheckEmail ,CreateAdmin,LoginAdmin,UpdateAdmin};
+export { CheckEmail ,CreateAdmin,LoginAdmin,UpdateAdmin,CheckAdminId};

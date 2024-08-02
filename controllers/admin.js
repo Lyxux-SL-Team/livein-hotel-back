@@ -1,4 +1,4 @@
-import { CheckEmail, CreateAdmin ,LoginAdmin,UpdateAdmin} from '../services/admin.js';
+import { CheckEmail, CreateAdmin ,LoginAdmin,UpdateAdmin,CheckAdminId} from '../services/admin.js';
 
 const CheckAdminEmailController = async (req, res) => {
   const { email } = req.body;
@@ -87,5 +87,26 @@ const UpdateAdminController = async (req, res) => {
       res.status(500).send({ success: false, message: error.message });
     }
   };
+
+  //check admin Id
+  const CheckAdminIdController = async (req, res) => {
+    const adminId = req.params.adminId;
+    try {
+      // Call the check admin service
+      const adminExists = await CheckAdminId(adminId);
+     
+      // If no admin is returned, respond with a 404 status code
+      if (!adminExists) {
+        return res.status(404).send({ success: false, message: 'Admin not found' });
+      }
   
-  export { CheckAdminEmailController, CreateAdminController, LoginAdminController, UpdateAdminController };
+      // Respond with success
+      res.status(200).send({ success: true, message: 'Admin found successfully' });
+    } catch (error) {
+      // Handle errors from the service
+      res.status(500).send({ success: false, message: error.message });
+    }
+  };
+  
+  
+  export { CheckAdminEmailController, CreateAdminController, LoginAdminController, UpdateAdminController,CheckAdminIdController };
