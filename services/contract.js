@@ -12,6 +12,23 @@ async function saveContract(adminId, contractVersion, options = {}) {
         throw new Error('Only one of propertyId or hotelId can be provided.');
     }
 
+    // Check if a contract already exists for the given property
+    if (propertyId) {
+        const existingContractForProperty = await Contract.findOne({ property: propertyId });
+        if (existingContractForProperty) {
+            throw new Error('A contract already exists for this property.');
+        }
+    }
+
+    // Check if a contract already exists for the given hotel
+    if (hotelId) {
+        const existingContractForHotel = await Contract.findOne({ hotel: hotelId });
+        if (existingContractForHotel) {
+            throw new Error('A contract already exists for this hotel.');
+        }
+    }
+
+    // Prepare the contract data
     const contractData = {
         admin: adminId,
         contractVersion,
@@ -26,6 +43,7 @@ async function saveContract(adminId, contractVersion, options = {}) {
         contractData.hotel = hotelId;
     }
 
+    // Create and save the new contract
     const contract = new Contract(contractData);
 
     try {

@@ -7,7 +7,8 @@ import {
     getAllPropertiesController,
     fetchLocationAutocomplete,
     searchPropertyController,
-    verifyPropertyController
+    verifyPropertyController,
+    verifyPropertyEmailController 
 } from '../controllers/property.js';
 
 
@@ -21,4 +22,5 @@ router.get('/getAllProperty',getAllPropertiesController);
 router.get('/locationAutocomplete', fetchLocationAutocomplete);
 router.get('/search', searchPropertyController);
 router.get('/verify/:propertyId', verifyPropertyController);
+router.get('/verify/:propertyId/:token', verifyPropertyEmailController);
 export {router as PropertyRouter}
