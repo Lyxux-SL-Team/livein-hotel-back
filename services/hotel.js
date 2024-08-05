@@ -1,6 +1,8 @@
 import Hotel from "../models/Hotel.js"; // Ensure correct file name
 import emailService from "./emailService.js";
 import fetch from 'node-fetch';
+import Token from "../models/Token.js"
+import crypto from 'crypto'
 import dotenv from 'dotenv'
 dotenv.config()
 // Create a new hotel
@@ -17,21 +19,63 @@ const getLocationAutocomplete = async (locationData) => {
   return data;
 };
 
-
+// Create hotel
 const createHotel = async (hotelData) => {
   try {
     const hotel = new Hotel(hotelData);
     await hotel.save();
-    const to=hotelData.email;
-    const subject="property Create Success";
-    const text=JSON.stringify(hotel,null,2)
 
-   await emailService(to,subject,text);
+    const token = new Token({
+      hotel: hotel._id,
+      token: crypto.randomBytes(32).toString('hex'),
+    });
+    await token.save();
+
+    const message = `
+      <div style="font-family: Arial, sans-serif; font-size: 16px; color: #333;">
+        <h2>Hotel Verification</h2>
+        <p>Please click the button below to verify your hotel listing:</p>
+        <a href="${process.env.BASE_URL}/api/hotel/verify/${hotel._id}/${token.token}" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #28a745; text-align: center; text-decoration: none; border-radius: 5px;">
+          Verify Hotel
+        </a>
+        <p>If you did not request this, please ignore this email.</p>
+      </div>
+    `;
+
+    await emailService(hotelData.email, 'Verify Hotel', message);
+
     return hotel;
   } catch (error) {
     throw new Error(`Error creating hotel: ${error.message}`);
   }
 };
+
+// Verify hotel email
+const verifyHotelEmail = async (hotelId, tokenId) => {
+  try {
+    const hotel = await Hotel.findById(hotelId);
+    if (!hotel) throw new Error('Invalid link');
+
+    const token = await Token.findOne({
+      hotel: hotel._id,
+      token: tokenId,
+    });
+    if (!token) throw new Error('Invalid link');
+
+    if (hotel.verify) {
+      await Token.findByIdAndDelete(token._id);
+      return 'Hotel already verified.';
+    }
+
+    await Hotel.findByIdAndUpdate(hotel._id, { verify: true });
+    await Token.findByIdAndDelete(token._id);
+
+    return 'Hotel verified successfully';
+  } catch (error) {
+    throw new Error(`An error occurred: ${error.message}`);
+  }
+};
+
 
 // Get a hotel by ID
 const getHotelById = async (hotelId) => {
@@ -130,4 +174,4 @@ const verifyHotel = async (hotelId) => {
 }
 
 
-export { createHotel, getHotelById, updateHotel, deleteHotel, getAllHotel ,getLocationAutocomplete,searchHotels,verifyHotel};
+export { createHotel, getHotelById, updateHotel, deleteHotel, getAllHotel ,getLocationAutocomplete,searchHotels,verifyHotel,verifyHotelEmail};

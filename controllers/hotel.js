@@ -6,18 +6,31 @@ import {
     getAllHotel,
     getLocationAutocomplete,
     searchHotels,
-    verifyHotel
+    verifyHotel,
+    verifyHotelEmail
 } from "../services/hotel.js"; 
 
-// Controller to create a new hotel
+// Controller for creating a hotel
 export const createHotelController = async (req, res) => {
-    try {
-        const hotel = await createHotel(req.body);
-        res.status(201).json({ success: true, data:hotel });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+  try {
+    const hotel = await createHotel(req.body);
+    res.status(201).json({ success: true, data: hotel });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
+
+// Controller for verifying a hotel
+export const verifyHotelEmailController = async (req, res) => {
+  try {
+    const { hotelId, token } = req.params;
+    const result = await verifyHotelEmail(hotelId, token);
+    res.status(200).json({ message: result });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 //location fit
 export const fetchLocationAutocomplete = async (req, res) => {
     try {
