@@ -1,6 +1,6 @@
-import nodemailer from "nodemailer"
-import dotenv from "dotenv"
-dotenv.config()
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
 
 const email = process.env.EMAIL;
 const password = process.env.EMAIL_PASSWORD;
@@ -13,13 +13,13 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const emailService = async (to, subject, text) => {
+const emailService = async (to, subject, html) => {
   try {
     let info = await transporter.sendMail({
       from: email,
-      to:to,
-      subject:subject,
-      text:text,
+      to: to,
+      subject: subject,
+      html: html,
     });
 
     console.log(`Email sent to ${to}: ${info.messageId}`);
@@ -29,4 +29,4 @@ const emailService = async (to, subject, text) => {
   }
 };
 
-export default emailService
+export default emailService;

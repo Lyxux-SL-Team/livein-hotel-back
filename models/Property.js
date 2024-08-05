@@ -61,7 +61,7 @@ const propertySchema = new schema({
     },
     verify:{
         type:Boolean,
-        default:true
+        default:false,
     }
 
 });

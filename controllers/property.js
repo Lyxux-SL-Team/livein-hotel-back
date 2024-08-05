@@ -7,16 +7,32 @@ import {
   getAllProperties,
   getLocationAutocomplete,
   searchProperty,
-  verifyProperty
+  verifyProperty,
+  verifyPropertyEmail
 } from "../services/property.js";
 
-// Controller to create a new property
+// Controller for creating a property
 export const createPropertyController = async (req, res) => {
   try {
-    const property = await createProperty(req.body);
-    res.status(201).json({ success: true, data:property });
+    const propertyData = req.body;
+    const property = await createProperty(propertyData);
+    res.status(201).json({
+      message: 'Property created successfully. Please verify it through the email.',
+      property,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Controller for verifying a property
+export const verifyPropertyEmailController = async (req, res) => {
+  try {
+    const { propertyId, token } = req.params;
+    const result = await verifyPropertyEmail(propertyId, token);
+    res.status(200).json({ message: result });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
 
@@ -92,7 +108,7 @@ export const searchPropertyController = async (req, res) => {
 //verify property
 export const verifyPropertyController = async (req, res) => {
   try {
-    const property = await verifyHotel(req.params.propertyId);
+    const property = await verifyProperty(req.params.propertyId);
     res.status(200).json(property.verify);
   } catch (error) {
     res.status(404).json({ message: error.message });
