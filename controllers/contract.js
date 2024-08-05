@@ -27,11 +27,11 @@ export const getContractsByAdminController = async (req, res) => {
   export const verifySignatureController = async (req, res) => {
     try {
         const contract = await verifySignature(req.params.hotelOrPropertyId);
-        console.log(contract.signature)
+        console.log(contract)
         
         res.status(200).json({
-            success: contract.signature,
-            message: (contract.signature)?"accept ":"true"
+            success: contract,
+            message: (contract)?"accept":"true"
         });
     } catch (error) {
         res.status(404).json({ message: error.message });
