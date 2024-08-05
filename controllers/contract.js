@@ -31,7 +31,6 @@ export const getContractsByAdminController = async (req, res) => {
         
         res.status(200).json({
             success: contract,
-            message: (contract)?"accept":"true"
         });
     } catch (error) {
         res.status(404).json({ message: error.message });

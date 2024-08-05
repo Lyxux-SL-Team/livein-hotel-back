@@ -10,11 +10,13 @@ const contractSchema = new schema({
     },
     property: {
         type: schema.Types.ObjectId,
-        ref: 'Property'
+        ref: 'Property',
+        unique:true,
     },
     hotel: {
         type: schema.Types.ObjectId,
-        ref: 'Hotel'
+        ref: 'Hotel',
+        unique:true,
     },
     contractVersion: {
         type: String,
@@ -28,16 +30,7 @@ const contractSchema = new schema({
     timestamps: true 
 });
 
-// Add pre-save validation to ensure only one of property or hotel is set
-contractSchema.pre('save', function(next) {
-    if (!this.property && !this.hotel) {
-        return next(new Error('Either property or hotel field is required.'));
-    }
-    if (this.property && this.hotel) {
-        return next(new Error('Only one of property or hotel can be set.'));
-    }
-    next();
-});
+
 
 const Contract = mongoose.model("Contract", contractSchema);
 
