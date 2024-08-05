@@ -64,7 +64,7 @@ const policySchema = new schema({
           type: Boolean,
         },
         percentage: {
-          type: Number,
+          type: String,
         },
       },
     ],
@@ -72,11 +72,11 @@ const policySchema = new schema({
 
   cancellationPolicy: [
     {
-      option: {
+      policy: {
         type: String,
       },
-      cancellationFee: {
-        type: Number,
+      option: {
+        type: String,
       },
     },
   ],
@@ -91,7 +91,7 @@ const policySchema = new schema({
           type: Boolean,
         },
         percentage: {
-          type: Number,
+          type: String,
         },
       },
     ],

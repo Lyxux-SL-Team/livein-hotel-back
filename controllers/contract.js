@@ -27,7 +27,6 @@ export const getContractsByAdminController = async (req, res) => {
   export const verifySignatureController = async (req, res) => {
     try {
         const contract = await verifySignature(req.params.hotelOrPropertyId);
-        console.log(contract)
         
         res.status(200).json({
             success: contract,

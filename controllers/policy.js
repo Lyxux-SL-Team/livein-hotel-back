@@ -5,7 +5,7 @@ export const createPolicyController = async (req, res) => {
   try {
     const policyData = req.body;
     const newPolicy = await createPolicy(policyData);
-    res.status(201).json(newPolicy);
+    res.status(201).json({success:true, data:newPolicy});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
