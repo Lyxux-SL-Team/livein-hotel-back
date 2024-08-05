@@ -17,11 +17,12 @@ export const createPropertyController = async (req, res) => {
     const propertyData = req.body;
     const property = await createProperty(propertyData);
     res.status(201).json({
+      success:true,
       message: 'Property created successfully. Please verify it through the email.',
       property,
     });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({success:false, error: error.message });
   }
 };
 
@@ -109,7 +110,7 @@ export const searchPropertyController = async (req, res) => {
 export const verifyPropertyController = async (req, res) => {
   try {
     const property = await verifyProperty(req.params.propertyId);
-    res.status(200).json(property.verify);
+    res.status(200).json({success: property.verify});
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
