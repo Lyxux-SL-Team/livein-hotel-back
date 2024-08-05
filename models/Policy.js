@@ -11,10 +11,13 @@ const policySchema = new schema({
   hotel: {
     type: schema.Types.ObjectId,
     ref: "Hotel",
+    unique:true,
+    
   },
   property: {
     type: schema.Types.ObjectId,
     ref: "Property",
+    unique:true,
   },
   languages: [
     {
@@ -28,45 +31,48 @@ const policySchema = new schema({
       required: true,
     },
   ],
-  paymentDeposit: {
-    type: Boolean,
-    required: true,
-  },
-  paymentInstall: {
-    type: Boolean,
-    required: true,
+
+  deposit: {
+    isDeposit: {
+      type: Boolean,
+    },
+    options: [
+      {
+        option: {
+          type: String,
+        },
+        isAvailable: {
+          type: Boolean,
+        },
+        amount: {
+          type: Number,
+        },
+      },
+    ],
   },
 
-  deposit: [
-    {
-      name: {
-        type: String,
-      },
-      availability: {
-        type: Boolean,
-      },
-      amount: {
-        type: Number,
-      },
+  installPayment: {
+    isInstallPayment: {
+      type: Boolean,
     },
-  ],
+    options: [
+      {
+        option: {
+          type: String,
+        },
+        isAvailable: {
+          type: Boolean,
+        },
+        percentage: {
+          type: Number,
+        },
+      },
+    ],
+  },
 
-  installPayment: [
-    {
-      name: {
-        type: String,
-      },
-      availability: {
-        type: Boolean,
-      },
-      percentage: {
-        type: Number,
-      },
-    },
-  ],
   cancellationPolicy: [
     {
-      name: {
+      option: {
         type: String,
       },
       cancellationFee: {
@@ -75,41 +81,21 @@ const policySchema = new schema({
     },
   ],
 
-  taxAndFees: [
-    {
-      name: {
-        type: String,
+  rental: {
+    options: [
+      {
+        option: {
+          type: String,
+        },
+        isAvailable: {
+          type: Boolean,
+        },
+        percentage: {
+          type: Number,
+        },
       },
-      availability: {
-        type: Boolean,
-      },
-      percentage: {
-        type: Number,
-      },
-    },
-  ],
-  rentalDiscount: [
-    {
-      name: {
-        type: String,
-      },
-      availability: {
-        type: Boolean,
-      },
-      percentage: {
-        type: Number,
-      },
-    },
-  ],
-  regulator:[{
-    name:{
-        type:String,
-    },
-    availability:{
-        type:Boolean,
-    }
-  }]
-  
+    ],
+  },
 });
 
 const Policy = mongoose.model("Policy", policySchema);
