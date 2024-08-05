@@ -5,7 +5,7 @@ export const saveContractController = async (req, res) => {
 
     try {
         const contract = await saveContract(adminId, contractVersion, { propertyId, hotelId, signature });
-        res.status(201).json(contract);
+        res.status(201).json({ success:true, contract });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -27,6 +27,7 @@ export const getContractsByAdminController = async (req, res) => {
   export const verifySignatureController = async (req, res) => {
     try {
         const contract = await verifySignature(req.params.hotelOrPropertyId);
+        console.log(contract.signature)
         
         res.status(200).json({
             success: contract.signature,
