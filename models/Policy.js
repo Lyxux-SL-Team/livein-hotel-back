@@ -11,10 +11,13 @@ const policySchema = new schema({
   hotel: {
     type: schema.Types.ObjectId,
     ref: "Hotel",
+    unique:true,
+    
   },
   property: {
     type: schema.Types.ObjectId,
     ref: "Property",
+    unique:true,
   },
   languages: [
     {

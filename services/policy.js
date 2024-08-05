@@ -3,6 +3,22 @@ import Policy from "../models/Policy.js";
 // Create a policy
 export const createPolicy = async (policyData) => {
   try {
+    // Check if a policy already exists for the given hotel or property
+    if (policyData.hotel) {
+      const existingPolicy = await Policy.findOne({ hotel: policyData.hotel });
+      if (existingPolicy) {
+        throw new Error('A policy already exists for this hotel.');
+      }
+    }
+
+    if (policyData.property) {
+      const existingPolicy = await Policy.findOne({ property: policyData.property });
+      if (existingPolicy) {
+        throw new Error('A policy already exists for this property.');
+      }
+    }
+
+    // If no existing policy is found, create the new policy
     const newPolicy = new Policy(policyData);
     await newPolicy.save();
     return newPolicy;
