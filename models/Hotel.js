@@ -63,7 +63,7 @@ const hotelSchema = new schema({
     },
     verify:{
         type:Boolean,
-        default:true
+        default:false,
     }
 
 })
