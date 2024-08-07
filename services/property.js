@@ -1,7 +1,7 @@
 import Property from '../models/Property.js';
 import emailService from "./emailService.js";
 import crypto from "crypto"
-import Token from "../models/Token.js";
+import Token from "../models/token.js";
 import dotenv from 'dotenv'
 dotenv.config();
 // Create a new property
