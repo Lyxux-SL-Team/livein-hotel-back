@@ -20,7 +20,7 @@ const internetOptionSchema = new Schema({
   },
 }, { _id: false });
 
-// Define a schema for fontDesk details
+// Define a schema for front desk details
 const deskScheduleSchema = new Schema({
   schedule: String,
   startDay: String,
@@ -36,13 +36,31 @@ const guestCheckInSchema = new Schema({
   isLateCheckingAvailable: Boolean,
 }, { _id: false });
 
-const fontDeskSchema = new Schema({
+const frontDeskSchema = new Schema({
   isAvailable: Boolean,
   virtualFrontDesk: String,
   deskSchedule: deskScheduleSchema,
   guestCheckIn: guestCheckInSchema,
   guestCheckOut: String,
   minimumCheckingAge: Number,
+}, { _id: false });
+
+// Define a schema for parking options
+const parkingOptionSchema = new Schema({
+  option: String,
+  isAvailable: Boolean,
+  type: String,
+  inOutPrivileges: Boolean,
+  coveredParking: Boolean,
+  uncoveredParking: Boolean,
+  securedParking: Boolean,
+  parkingFee: String,
+  duration: String,
+}, { _id: false });
+
+const parkingSchema = new Schema({
+  isAvailable: Boolean,
+  options: [parkingOptionSchema],
 }, { _id: false });
 
 // Define the main amenities schema
@@ -64,8 +82,9 @@ const amenitiesSchema = new Schema({
   options: {
     type: String,
   },
-  fontDesk: fontDeskSchema,
+  frontDesk: frontDeskSchema,
   Internet: [internetOptionSchema],
+  parking: parkingSchema,
 });
 
 const Amenities = mongoose.model("Amenities", amenitiesSchema);
