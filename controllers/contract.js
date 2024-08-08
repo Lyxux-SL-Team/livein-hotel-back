@@ -17,7 +17,7 @@ export const getContractsByAdminController = async (req, res) => {
 
     try {
         const contracts = await getContractsByAdmin(adminId);
-        res.status(200).json(contracts);
+        res.status(200).json({success:true,contracts});
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
