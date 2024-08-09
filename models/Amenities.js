@@ -183,6 +183,30 @@ const petSchema = new Schema({
   typeRestrictions: String,
 }, { _id: false });
 
+// Define a schema for accessibility features
+const accessibilityOptionSchema = new Schema({
+  option: String,
+  isAvailable: Boolean,
+  registrationDeskHeightCentimeters: Number,
+  registrationDeskHeightInches: Number,
+  hallwayHandrailHeightCentimeters: Number,
+  hallwayHandrailHeightInches: Number,
+  noOfOnSiteParkingSpots: String,
+}, { _id: false });
+
+const accessibilitySchema = new Schema({
+  elevators: {
+    isAvailable: Boolean,
+    wheelchairAccessiblePathToElevator: Boolean,
+  },
+  otherPropertyAccessibilityFeatures: [accessibilityOptionSchema],
+  propertyEntranceList: [accessibilityOptionSchema],
+  wheelchairAccessible: {
+    accessibleList: [accessibilityOptionSchema],
+  },
+  isAvailable: Boolean,
+}, { _id: false });
+
 
 // Define the main amenities schema
 const amenitiesSchema = new Schema({
@@ -211,6 +235,7 @@ const amenitiesSchema = new Schema({
   dining: diningVenueSchema,
   spa: spaSchema,
   pet: petSchema,
+  accessibility: accessibilitySchema,
 });
 
 const Amenities = mongoose.model("Amenities", amenitiesSchema);
