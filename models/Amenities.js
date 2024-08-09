@@ -225,6 +225,17 @@ const guestServicesSchema = new Schema({
   smokingPreferences: String,
 }, { _id: false });
 
+// Define a schema for in-room conveniences
+const roomConvenienceSchema = new Schema({
+  option: String,
+  type: String,
+  isAvailable: Boolean,
+}, { _id: false });
+
+const inRoomConveniencesSchema = new Schema({
+  isAvailable: Boolean,
+  roomConveniencesList: [roomConvenienceSchema],
+}, { _id: false });
 
 // Define the main amenities schema
 const amenitiesSchema = new Schema({
@@ -255,6 +266,7 @@ const amenitiesSchema = new Schema({
   pet: petSchema,
   accessibility: accessibilitySchema,
   guestServices: guestServicesSchema,
+  inRoomConveniences: inRoomConveniencesSchema,
 });
 
 const Amenities = mongoose.model("Amenities", amenitiesSchema);
