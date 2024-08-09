@@ -120,6 +120,22 @@ const diningVenueSchema = new Schema({
   galaDinners: [diningFeeSchema],
 }, { _id: false });
 
+// Define a schema for spa options
+const spaOptionSchema = new Schema({
+  name: String,
+  isAvailable: Boolean,
+}, { _id: false });
+
+// Define a schema for spa amenities
+const spaSchema = new Schema({
+  isAvailable: Boolean,
+  openType: String,
+  option: String,
+  spaName: String,
+  type: String,
+  options: [spaOptionSchema],
+}, { _id: false });
+
 // Define the main amenities schema
 const amenitiesSchema = new Schema({
   admin: {
@@ -145,7 +161,7 @@ const amenitiesSchema = new Schema({
   breakfast: breakfastSchema,
   poolAccess: poolAccessSchema,
   dining: diningVenueSchema,
-  
+  spa: spaSchema,
 });
 
 const Amenities = mongoose.model("Amenities", amenitiesSchema);
