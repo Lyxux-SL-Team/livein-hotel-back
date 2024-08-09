@@ -1,7 +1,7 @@
 import Hotel from "../models/Hotel.js"; // Ensure correct file name
 import emailService from "./emailService.js";
 import fetch from 'node-fetch';
-import Token from "../models/Token.js"
+import Token from "../models/token.js"
 import crypto from 'crypto'
 import dotenv from 'dotenv'
 dotenv.config()

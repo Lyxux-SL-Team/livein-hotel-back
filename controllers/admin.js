@@ -49,13 +49,14 @@ const LoginAdminController =async(req,res)=>{
 
         // Respond with success
         res.status(200).json({
+            success:true,
             message: 'Login successful',
             user: admin.admin,
             token:admin.token,
         });
     } catch (error) {
         // Handle errors from the service
-        res.status(400).json({ message: error.message });
+        res.status(400).json({success:false, message: error.message });
     }
 }
 
