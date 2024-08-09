@@ -92,6 +92,34 @@ const poolAccessSchema = new Schema({
   options: [poolAccessOptionSchema],
 }, { _id: false });
 
+// Define a schema for dining venue options
+const diningOptionSchema = new Schema({
+  option: String,
+  isAvailable: Boolean,
+}, { _id: false });
+
+// Define a schema for dining venue fees
+const diningFeeSchema = new Schema({
+  name: String,
+  childAmount: Number,
+  feeAmount: Number,
+  isAvailable: Boolean,
+  minChildAge: String,
+  maxChildAge: String,
+  type: String,
+}, { _id: false });
+
+// Define a schema for dining venues
+const diningVenueSchema = new Schema({
+  coffeShopOrCafe: {
+    type: String,
+    enum: ["June"],
+  },
+  isAvailable: Boolean,
+  options: [diningOptionSchema],
+  galaDinners: [diningFeeSchema],
+}, { _id: false });
+
 // Define the main amenities schema
 const amenitiesSchema = new Schema({
   admin: {
@@ -116,6 +144,7 @@ const amenitiesSchema = new Schema({
   parking: parkingSchema,
   breakfast: breakfastSchema,
   poolAccess: poolAccessSchema,
+  dining: diningVenueSchema,
   
 });
 
