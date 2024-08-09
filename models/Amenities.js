@@ -207,6 +207,24 @@ const accessibilitySchema = new Schema({
   isAvailable: Boolean,
 }, { _id: false });
 
+// Define a schema for guest services options
+const guestServiceOptionSchema = new Schema({
+  option: String,
+  isAvailable: Boolean,
+  type: String, // Example: "surcharge"
+  coinOperatedLaundryOnSite: Boolean,
+  sharedMicrowave: Boolean,
+  sharedRefrigerator: Boolean,
+  shoppingOnSite: Boolean,
+}, { _id: false });
+
+const guestServicesSchema = new Schema({
+  isAvailable: Boolean,
+  options: [guestServiceOptionSchema],
+  smokingAreas: Boolean,
+  smokingPreferences: String,
+}, { _id: false });
+
 
 // Define the main amenities schema
 const amenitiesSchema = new Schema({
@@ -236,6 +254,7 @@ const amenitiesSchema = new Schema({
   spa: spaSchema,
   pet: petSchema,
   accessibility: accessibilitySchema,
+  guestServices: guestServicesSchema,
 });
 
 const Amenities = mongoose.model("Amenities", amenitiesSchema);
