@@ -136,6 +136,54 @@ const spaSchema = new Schema({
   options: [spaOptionSchema],
 }, { _id: false });
 
+//define a schema for pet amenities
+const surchargeSchema = new Schema({
+  MaximumFeePerStay: Boolean,
+  duration: String,
+  feePerStay: Number,
+  feeVary: Boolean,
+  isAvailable: String, // or Boolean, depending on your requirement
+  petFeeAmount: Number,
+  type: String,
+}, { _id: false });
+
+const petOptionSchema = new Schema({
+  isAvailable: Boolean,
+  option: String,
+}, { _id: false });
+
+const petCleaningFeeSchema = new Schema({
+  isAvailable: Boolean,
+  petDepositAmount: Number,
+}, { _id: false });
+
+const petDepositSchema = new Schema({
+  duration: String,
+  isAvailable: Boolean,
+  petDepositAmount: Number,
+}, { _id: false });
+
+const petRestrictionsSchema = new Schema({
+  features: [petOptionSchema],
+}, { _id: false });
+
+const petSchema = new Schema({
+  isAvailable: Boolean,
+  options: [petOptionSchema],
+  petCleaningFee: petCleaningFeeSchema,
+  petDeposit: petDepositSchema,
+  restrictions: petRestrictionsSchema,
+  maxPerRoom: String,
+  maxWeightLimitPerPet: {
+    amount: Number,
+    unit: String,
+  },
+  smallPetOnly: Boolean,
+  surcharge: surchargeSchema, 
+  typeRestrictions: String,
+}, { _id: false });
+
+
 // Define the main amenities schema
 const amenitiesSchema = new Schema({
   admin: {
@@ -162,6 +210,7 @@ const amenitiesSchema = new Schema({
   poolAccess: poolAccessSchema,
   dining: diningVenueSchema,
   spa: spaSchema,
+  pet: petSchema,
 });
 
 const Amenities = mongoose.model("Amenities", amenitiesSchema);
