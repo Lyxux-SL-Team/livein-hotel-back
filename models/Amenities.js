@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
+
+
 // Define a schema for Internet options and their restrictions
 const restrictionSchema = new Schema({
   option: String,
@@ -65,34 +67,29 @@ const parkingSchema = new Schema({
 
 // Define a schema for breakfast options
 const breakfastOptionSchema = new Schema({
+  option: String,
+}, { _id: false });
+
+const breakfastSchema = new Schema({
   isAvailable: Boolean,
-  options: {
-    option: String,
-  },
+  options: [breakfastOptionSchema],
 }, { _id: false });
 
 // Define a schema for pool access options
 const poolAccessOptionSchema = new Schema({
-  isAvailable: Boolean,
+  option: String,
   howMany: String,
-  endMonth: String,
+  startTime: String,
+  endTime: String,
   from: String,
-  startMonth: String,
   to: String,
   type: String,
-  endTime: String,
-  startTime: String,
-  option: String,
+  isAvailable: Boolean,
 }, { _id: false });
 
 const poolAccessSchema = new Schema({
   isAvailable: Boolean,
   options: [poolAccessOptionSchema],
-}, { _id: false });
-
-// Define a schema for spa details
-const spaSchema = new Schema({
-  isAvailable: Boolean,
 }, { _id: false });
 
 // Define the main amenities schema
@@ -117,9 +114,9 @@ const amenitiesSchema = new Schema({
   frontDesk: frontDeskSchema,
   Internet: [internetOptionSchema],
   parking: parkingSchema,
-  breakfast: breakfastOptionSchema,
+  breakfast: breakfastSchema,
   poolAccess: poolAccessSchema,
-  spa: spaSchema, 
+  
 });
 
 const Amenities = mongoose.model("Amenities", amenitiesSchema);
